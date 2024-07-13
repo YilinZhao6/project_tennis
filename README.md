@@ -66,5 +66,5 @@ rnn_2_json_only.py（在云端运行）
 读取上传的csv文件，用tennis_rnn_rafa.keras（RNN)来提取球员的正手/反手动作。输出动作开始/结束的时间戳[.json](https://github.com/YilinZhao6/project_tennis/blob/main/rnn_strike_isolation/sample_output/2_json/1_timestamp.json)文件。rnn_2_json_only.py可以使用tensorflow进行GPU加速。
 
 
-### 分析球速->(ball_speed)
+### 分析球速(ball_speed)
 
