@@ -71,32 +71,17 @@ RNN输出的json文件中的时间戳，是动作相对每一段视频的“相�
 输入：一个视频片段
 输出：一个标注了球员位置，以及球速的视频
 
-在运行ball_speed_analyzer.py时，程序会首先让用户点击4个点（确定一个矩形），确认player和tennis ball的识别区域。此后，会让用户选择一条线（player 1和player 2的分界线）。最后，让用户点击网球场的四个角，以及中心。在完成上述步骤后，程序利用利用yolov8n.pt开始处理视频。yolov8n.pt模型会逐帧识别球的位置，并计算球的速度。另外，程序还会判断是哪一个球员的turn。假如球靠近了离player1 150px的区域，那么直到网球碰到下一个球员前，都算为player 1的turn.程序除了display实时速度，还会计算出每个turn的最大速度。
+在运行ball_speed_analyzer.py时，程序会首先让用户点击4个点（确定一个矩形），确认player和tennis ball的识别区域。此后，会让用户选择一条线（player 1和player 2的分界线）。最后，让用户点击网球场的四个角，以及中心。在完成上述步骤后，程序利用利用yolov8n.pt开始处理视频。yolov8n.pt模型会逐帧识别球的位置，并计算球的速度。另外，程序还会判断是哪一个球员的turn。假如球靠近了离player1 150px的区域，那么直到网球碰到下一个球员前，都算为player 1的turn.程序除了显示球的实时速度，还会计算出每个turn的最大速度。
 
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://drive.google.com/file/d/YOUR_FILE_ID_1/view" target="_blank">
-        <img src="path/to/thumbnail1.jpg" width="250" alt="Video 1"/>
-      </a>
-      <br>
-      Video 1 Annotation
-    </td>
-    <td align="center">
-      <a href="https://drive.google.com/file/d/YOUR_FILE_ID_2/view" target="_blank">
-        <img src="path/to/thumbnail2.jpg" width="250" alt="Video 2"/>
-      </a>
-      <br>
-      Video 2 Annotation
-    </td>
-    <td align="center">
-      <a href="https://drive.google.com/file/d/1ohPbMEhLCQOSE6XOrlFF00bfRNeW9PCK/view" target="_blank">
-        <img src="path/to/thumbnail3.jpg" width="250" alt="Video 3"/>
-      </a>
-      <br>
-      Video 3 Annotation
-    </td>
-  </tr>
-</table>
+在部署中需要确认的地方：
+测试用视频中，大部分的球都存在虚影的情况，yolov8n.pt在该种情况下识别率较低。如果摄像头拍出来没有虚影，识别率会高很多。
 
+当用户标注了场地的四个角，以及中心，程序会以网球场的中心做transformation，将label出的大概类似梯形的形状变换成网球场的标准形状--同时变换网球的位置。
 
+[样例输出视频](https://drive.google.com/drive/folders/1ohPbMEhLCQOSE6XOrlFF00bfRNeW9PCK?usp=sharing)
+
+### 同时浏览多路视频(viewing_videos)
+
+这部分还没有完成。大概思路如下：
+
+RNN分析动作后，将“相对时间”转化成“绝对时间”（电脑内的内置时间），这样我们就得到了每个动作的开始和结束时间。根据每个动作的开始和结束时间，从视频流读取(video_stream)的输出文件夹获取视频。每一个输出文件夹的video_times.json都包含了子视频的绝对开始和结束时间，据此可以导出多角度的视频预览。（也可以添加球速的预览）
