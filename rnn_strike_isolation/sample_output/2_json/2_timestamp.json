@@ -1,0 +1,24 @@
+[
+  {
+    "video_url": "2.mp4",
+    "id": 1,
+    "tricks": [
+      {
+        "start": 0.0,
+        "end": 2.0,
+        "channel": 0,
+        "labels": [
+          "Forehand Strike"
+        ]
+      },
+      {
+        "start": 3.6,
+        "end": 5.6,
+        "channel": 0,
+        "labels": [
+          "Backhand Strike"
+        ]
+      }
+    ]
+  }
+]
