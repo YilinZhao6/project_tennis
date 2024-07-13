@@ -49,3 +49,10 @@ rtsp_urls = [
 ```python
     start_delay = 5 + i * 3  # 5, 8, 11, 14 seconds
 ```
+
+为了在录制过程中同时处理视频，程序会以一段时间来导出录制好的视频（例如，20s的间隔）例如，运行程序2分钟，将会得到6个长度为20s的视频，以及一个含有各个视频开始/结束时间戳的[.json](https://github.com/YilinZhao6/project_tennis/blob/main/video_stream/rtsp_output_1/video_times.json)文件。可以通过修改record_rtsp的argument来修改视频的长度。
+```python
+    thread = Thread(target=record_rtsp, args=(url, start_delay, 20, output_folder))
+```
+
+
