@@ -26,3 +26,6 @@
 │  └─video_stream_json_output.py
 └─viewing_videos
 ```
+程序一共分为四个部分，视频流读取(video_stream)->RNN分析动作(rnn_strike_isolation)->分析球速->(ball_speed)->同时浏览多路视频(viewing_videos)。其中前三个部分的大部分代码已经完成，同时浏览多路视频的界面可以根据客户需求来设计。
+
+### 视频流读取(video_stream)
