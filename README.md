@@ -68,3 +68,22 @@ rnn_2_json_only.py（在云端运行）
 
 ### 分析球速(ball_speed)
 
+<table>
+  <tr>
+    <td align="center">
+      <video src="https://github.com/YilinZhao6/project_tennis/blob/main/ball_speed/sample_output/7-output.mp4" width="250" controls autoplay muted loop></video>
+      <br>
+      Video 1 Annotation
+    </td>
+    <td align="center">
+      <video src="https://github.com/YilinZhao6/project_tennis/blob/main/ball_speed/sample_output/7-transformed-output.mp4" width="250" controls autoplay muted loop></video>
+      <br>
+      Video 2 Annotation
+    </td>
+    <td align="center">
+      <video src="https://github.com/YilinZhao6/project_tennis/blob/main/ball_speed/sample_output/7-output-mask.mp4" width="250" controls autoplay muted loop></video>
+      <br>
+      Video 3 Annotation
+    </td>
+  </tr>
+</table>
