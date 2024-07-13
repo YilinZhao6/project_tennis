@@ -65,27 +65,38 @@ rnn_1.py（在本地运行）
 rnn_2_json_only.py（在云端运行）
 读取上传的csv文件，用tennis_rnn_rafa.keras（RNN)来提取球员的正手/反手动作。输出动作开始/结束的时间戳[.json](https://github.com/YilinZhao6/project_tennis/blob/main/rnn_strike_isolation/sample_output/2_json/1_timestamp.json)文件。rnn_2_json_only.py可以使用tensorflow进行GPU加速。
 
-RNN输出的json文件中的时间戳，是动作相对视频的“相对时间”.结合视频流读取中的[video_times.json](https://github.com/YilinZhao6/project_tennis/blob/main/video_stream/rtsp_output_4/video_times.json)，我们可以得到动作的“绝对时间”。我们可以利用“绝对时间”的数据，来导出视频，进行球速分析和多视角的同步预览。
+RNN输出的json文件中的时间戳，是动作相对每一段视频的“相对时间”.结合视频流读取中的[video_times.json](https://github.com/YilinZhao6/project_tennis/blob/main/video_stream/rtsp_output_4/video_times.json)，我们可以得到动作的“绝对时间”。我们可以利用“绝对时间”的数据，来导出视频，进行球速分析和多视角的同步预览。
 
 ### 分析球速(ball_speed)
+输入：一个视频片段
+输出：一个标注了球员位置，以及球速的视频
 
+在运行ball_speed_analyzer.py时，程序会首先让用户点击4个点（确定一个矩形），确认player和tennis ball的识别区域。此后，会让用户选择一条线（player 1和player 2的分界线）。最后，让用户点击网球场的四个角，以及中心。在完成上述步骤后，程序利用利用yolov8n.pt开始处理视频。yolov8n.pt模型会逐帧识别球的位置，并计算球的速度。另外，程序还会判断是哪一个球员的turn。假如球靠近了离player1 150px的区域，那么直到网球碰到下一个球员前，都算为player 1的turn.程序除了display实时速度，还会计算出每个turn的最大速度。
 
 <table>
   <tr>
     <td align="center">
-      <video src="https://raw.githubusercontent.com/YilinZhao6/project_tennis/main/ball_speed/sample_output/7-output.mp4" width="250" autoplay loop muted playsinline></video>
+      <a href="https://drive.google.com/file/d/YOUR_FILE_ID_1/view" target="_blank">
+        <img src="path/to/thumbnail1.jpg" width="250" alt="Video 1"/>
+      </a>
       <br>
       Video 1 Annotation
     </td>
     <td align="center">
-      <video src="https://raw.githubusercontent.com/YilinZhao6/project_tennis/main/ball_speed/sample_output/7-transformed-output.mp4" width="250" autoplay loop muted playsinline></video>
+      <a href="https://drive.google.com/file/d/YOUR_FILE_ID_2/view" target="_blank">
+        <img src="path/to/thumbnail2.jpg" width="250" alt="Video 2"/>
+      </a>
       <br>
       Video 2 Annotation
     </td>
     <td align="center">
-      <video src="https://drive.google.com/file/d/1RpTB6sF2Xe25yXcTFK7NdxdLzYF5mzA7/view?usp=sharing" width="250" autoplay loop muted playsinline></video>
+      <a href="https://drive.google.com/file/d/1ohPbMEhLCQOSE6XOrlFF00bfRNeW9PCK/view" target="_blank">
+        <img src="path/to/thumbnail3.jpg" width="250" alt="Video 3"/>
+      </a>
       <br>
       Video 3 Annotation
     </td>
   </tr>
 </table>
+
+
