@@ -45,7 +45,7 @@ rtsp_urls = [
 
 程序逻辑:
 
-当用户运行video_stream_json_output.py，程序会先等待一定的缓冲时间（e.g. 5s)，之后会以一定间隔（e.g. 3s), 来开始每段视频流的录制。程序的缓冲时间可以根据摄像头，以及本地电脑的性能来设置。之所以设置缓冲以及间隔时间，是为了避免4路视频同时录制，因电脑overload而带来的时间差。总体来说，这种录制方式可以让各路视频的时间差更可控。这行代码可以来设置缓冲时间，以及间隔时间。
+当用户运行video_stream_json_output.py，程序会先等待一定的缓冲时间（e.g. 5s)，之后会以一定间隔（e.g. 3s), 来开始每段视频流的录制。（建议：输入RNN的视频流，可以放到最后一个rtsp link）程序的缓冲时间可以根据摄像头，以及本地电脑的性能来设置。之所以设置缓冲以及间隔时间，是为了避免4路视频同时录制，因电脑overload而带来的时间差。总体来说，这种录制方式可以让各路视频的时间差更可控。这行代码可以来设置缓冲时间，以及间隔时间。
 ```python
     start_delay = 5 + i * 3  # 5, 8, 11, 14 seconds
 ```
@@ -54,5 +54,17 @@ rtsp_urls = [
 ```python
     thread = Thread(target=record_rtsp, args=(url, start_delay, 20, output_folder))
 ```
+### RNN分析动作(rnn_strike_isolation)
 
+根据项目要求，RNN分析动作的程序被分成了两部分：rnn_1.py负责从视频中提取人体的keypoint特征（本地执行），对于每一个视频，输出一个包含每帧信息的csv文件。将输出的csv文件上传到云端后，在云端执行rnn_2_json_only.py，来用RNN提取视频中的动作瞬间，并输出包含每个动作开始/结束时间戳的.json文件。具体的输出文件格式，可以参考rnn_strike_isolation/sample_output文件夹。
+
+程序逻辑：
+rnn_1.py（在本地运行）
+当程序开始运行，会搜索source folder（即视频流读取的输出文件夹）是否存在已经保存好的mp4视频（不包括正在录制的mp4缓存文件）。如有，用movenet.tflite来逐帧提取视频中的人体特征，并输出以视频名命名的[.csv](https://github.com/YilinZhao6/project_tennis/blob/main/rnn_strike_isolation/sample_output/1_csv/1_keypoints.csv)文件。rnn_1.py和video_stream_json_output.py应同时运行，rnn_1可以动态读取视频流所保存的新视频。对于一个视频rnn_1.py的处理时间比视频时长要短（20s视频处理16s左右）
+
+rnn_2_json_only.py（在云端运行）
+读取上传的csv文件，用tennis_rnn_rafa.keras（RNN)来提取球员的正手/反手动作。输出动作开始/结束的时间戳[.json](https://github.com/YilinZhao6/project_tennis/blob/main/rnn_strike_isolation/sample_output/2_json/1_timestamp.json)文件。rnn_2_json_only.py可以使用tensorflow进行GPU加速。
+
+
+### 分析球速->(ball_speed)
 
