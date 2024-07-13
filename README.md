@@ -65,23 +65,25 @@ rnn_1.py（在本地运行）
 rnn_2_json_only.py（在云端运行）
 读取上传的csv文件，用tennis_rnn_rafa.keras（RNN)来提取球员的正手/反手动作。输出动作开始/结束的时间戳[.json](https://github.com/YilinZhao6/project_tennis/blob/main/rnn_strike_isolation/sample_output/2_json/1_timestamp.json)文件。rnn_2_json_only.py可以使用tensorflow进行GPU加速。
 
+RNN输出的json文件中的时间戳，是动作相对视频的“相对时间”.结合视频流读取中的[video_times.json](https://github.com/YilinZhao6/project_tennis/blob/main/video_stream/rtsp_output_4/video_times.json)，我们可以得到动作的“绝对时间”。我们可以利用“绝对时间”的数据，来导出视频，进行球速分析和多视角的同步预览。
 
 ### 分析球速(ball_speed)
+
 
 <table>
   <tr>
     <td align="center">
-      <video src="https://github.com/YilinZhao6/project_tennis/blob/main/ball_speed/sample_output/7-output.mp4" width="250" controls autoplay muted loop></video>
+      <video src="https://raw.githubusercontent.com/YilinZhao6/project_tennis/main/ball_speed/sample_output/7-output.mp4" width="250" autoplay loop muted playsinline></video>
       <br>
       Video 1 Annotation
     </td>
     <td align="center">
-      <video src="https://github.com/YilinZhao6/project_tennis/blob/main/ball_speed/sample_output/7-transformed-output.mp4" width="250" controls autoplay muted loop></video>
+      <video src="https://raw.githubusercontent.com/YilinZhao6/project_tennis/main/ball_speed/sample_output/7-transformed-output.mp4" width="250" autoplay loop muted playsinline></video>
       <br>
       Video 2 Annotation
     </td>
     <td align="center">
-      <video src="https://github.com/YilinZhao6/project_tennis/blob/main/ball_speed/sample_output/7-output-mask.mp4" width="250" controls autoplay muted loop></video>
+      <video src="https://drive.google.com/file/d/1RpTB6sF2Xe25yXcTFK7NdxdLzYF5mzA7/view?usp=sharing" width="250" autoplay loop muted playsinline></video>
       <br>
       Video 3 Annotation
     </td>
