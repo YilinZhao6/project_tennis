@@ -22,6 +22,7 @@
 │  ├─rtsp_output_1
 │  ├─rtsp_output_2
 │  ├─rtsp_output_3
-│  └─rtsp_output_4
+│  ├─rtsp_output_4
+│  └─video_stream_json_output.py
 └─viewing_videos
 ```
